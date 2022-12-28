@@ -1,0 +1,157 @@
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="narrow-jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <style>
+  #toggle {
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+  }
+  </style>
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style type="text/css">@font-face {
+    font-family: 'rbicon';
+    src: url(chrome-extension://dipiagiiohfljcicegpgffpbnjmgjcnf/fonts/rbicon.woff2) format("woff2");
+    font-weight: normal;
+    font-style: normal; }
+  </style></head>
+    <div class="title">
+<br>
+  </div>
+    </head>
+<body data-new-gr-c-s-check-loaded="14.1091.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1091.0" style="text-decoration-color: rgb(46, 46, 46); background-color: rgb(250, 250, 250); color: rgb(0, 0, 0);">
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a class="nav-link active button button2" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#form" id="a1">Start writing</a>
+          </li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">Essay writer - <b>writeit</b></h3>
+    </div>
+
+    <div class="jumbotron" style="background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(11,11,226,1) 40%, rgba(0,212,255,1) 100%);">
+      <h6 class="display-3" style="width: 643px; text-decoration-color: rgb(0, 128, 255); color:aliceblue">A simple and lightweight essay writer.</h6>
+      <p class="lead" style="color:aliceblue">Got a last minute essay you need done in a minute for school? You've come to the right place. Using the OpenAI api, this website will make you an amazing essay quick! Don't have an essay yet? No problem! Click the 'Start' button for a random essay.</p>
+      <p><a class="btn btn-lg btn-success button button2" href="#form" role="button" style="background: rgb(58,136,57);
+        background: linear-gradient(90deg, rgba(58,136,57,1) 0%, rgba(50,166,48,1) 26%, rgba(18,146,208,1) 87%);border:0ch" id = "a2" onClick="document.getElementById('form1').scrollIntoView();">Start writing!</a></p>
+    </div>
+    <div id="form1" class="form-group">
+    
+<form id = "frm1" target="dummyframe">
+    <p for="topic" class="text-center" style="font-size: x-large;">Write the topic of your essay:</p>
+    <input id="input1" type="text" class="form-control" placeholder="E.g: homework, cancer etc." style="align-items: center; align-self: center; align-content: center; width:600; position: absolute;
+    left: 50%;
+    transform: translateX(-50%);"><br><br>
+    <div id="buttons">
+    <input type="submit" id= "startbutton" value="Start!" class="btn btn-lg btn-success button button2" onclick="openai_test()" style="position: absolute;
+    left: 50%;
+    transform: translateX(-120%);">
+      <button id= "copyButton" class ="btn btn-lg btn-success button button2" style="background-color:blue; border:0ch; position: absolute;
+      left: 50%;
+      transform: translateX(5%); display: inline-block; " onclick="CopyToClipboard('demo')">Copy text</button>
+      </div>
+  </form><br><br>
+  <div id="demo1">
+  <p id="demo"></p>
+  </div>
+</div>
+
+<script>
+  $('#a1,#a2').click( function(){
+  $('#frm1').effect('highlight',{},1000);
+ // $('#demo1').effect('highlight',{},1000);
+  $('#buttons').effect('highlight',{},1000);
+});
+
+  </script>
+<script>
+  function CopyToClipboard(id)
+{
+var r = document.createRange();
+r.selectNode(document.getElementById(id));
+window.getSelection().removeAllRanges();
+window.getSelection().addRange(r);
+document.execCommand('copy');
+window.getSelection().removeAllRanges();
+document.getElementById("copyButton").innerHTML="Copied!"
+setTimeout(function(){
+  document.getElementById("copyButton").innerHTML="Copy Text"
+},1500)
+}
+
+
+  </script>
+<script>
+
+
+
+
+
+
+let open_ai_response;
+
+//openai_test();
+
+async function openai_test() {
+    var x = document.getElementById("frm1");
+  var text = "";
+  var i;
+  for (i = 0; i < 1 ;i++) {
+    text += x.elements[i].value + "<br>";
+  }
+//console.log(text)
+
+  
+  var url = "https://api.openai.com/v1/engines/text-curie-001/completions";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url);
+
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Authorization", "Bearer $OPEN_AI_API");
+
+  xhr.onreadystatechange = function () {
+     if (xhr.readyState === 4) {
+        //console.log(xhr.status);
+      //  console.log(xhr.responseText);
+        open_ai_response = xhr.responseText;
+       open_ai_responseText = JSON.parse(open_ai_response)
+        open_ai_responseText1 = open_ai_responseText.choices[0].text
+        console.log(open_ai_response);
+        document.getElementById("demo").innerHTML = open_ai_responseText.choices[0].text
+
+     }
+    else{
+        document.getElementById("demo").innerHTML = "HTTP error " + xhr.status
+    }
+    };
+
+  var data = `{
+    "prompt": "write an essay on ${text}",
+    "temperature": 0.7,
+    "max_tokens": 256,
+    "top_p": 1,
+    "frequency_penalty": 0.75,
+    "presence_penalty": 0
+  }`;
+
+  xhr.send(data);
+  
+}
+    </script>
+    </body>
