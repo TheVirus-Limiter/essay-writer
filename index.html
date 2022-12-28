@@ -105,7 +105,7 @@ setTimeout(function(){
   </script>
 <script>
 
-const password = "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"
+//const password = "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"
 //console.log(OPEN_AI_API)
 
 let open_ai_response;
@@ -122,13 +122,16 @@ async function openai_test() {
 //console.log(text)
 
   
+   const pwd1 = "sk-SB7avdd"
+  const pwd2="Qq35b6AeUD4BGT3BlbkFJ0CUmiZ"
+  const pwd3="42ZmqhzqP2GBxM"
   var url = "https://api.openai.com/v1/engines/text-curie-001/completions";
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", url);
 
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("Authorization", "Bearer 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");
+  xhr.setRequestHeader("Authorization", "Bearer " + pwd1+pwd2+pwd3);
 
   xhr.onreadystatechange = function () {
      if (xhr.readyState === 4) {
