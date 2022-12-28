@@ -9,3 +9,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(226,11,69,1) 40%, rgb
   .button2:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   }
+
+html {
+  scroll-behavior: smooth;
+}
